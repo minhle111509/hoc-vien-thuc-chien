@@ -22,11 +22,11 @@ const caseInfo=own?[own.situation,own.task]:cases[courseId][index%7];const title
 concept:own?own.concept:`${title}: ${f.principle}`,
 scenario:own?`${own.situation} Nhiệm vụ: ${own.task}`:`${caseInfo[0]}. Nhiệm vụ: ${caseInfo[1]}`,
 materials:f.tools,
-steps:[`Dự đoán: ghi một kết quả mong đợi liên quan đến “${title}”.`,`Thử nghiệm: ${caseInfo[1]}`,`Đối chiếu: thay đổi đúng một yếu tố, ghi lại điều khác biệt.`,`Giải thích: chỉ ra bằng chứng và một giới hạn của kết quả.`],
+steps:own?.teach?.steps||[`Dự đoán: ghi một kết quả mong đợi liên quan đến “${title}”.`,`Thử nghiệm: ${caseInfo[1]}`,`Đối chiếu: thay đổi đúng một yếu tố, ghi lại điều khác biệt.`,`Giải thích: chỉ ra bằng chứng và một giới hạn của kết quả.`],
 assessment:f.quality,
 misconception:own?own.misconception:courseId==='photo'?'Ảnh sáng hơn không phải lúc nào cũng tốt hơn; phải xét mục đích và chi tiết.':courseId==='agent'?'Quy trình chạy hết không có nghĩa là an toàn; cần thử dữ liệu lỗi và quyền hạn.':'Câu trả lời nghe hợp lý không đồng nghĩa với đúng; cần kiểm chứng.',
 safety:f.safety,
-tools:own?.tools||'',toolsChecked:TOOLS_CHECKED,
+tools:own?.tools||'',teach:own?.teach||null,toolsChecked:TOOLS_CHECKED,
 transfer:`Thử áp dụng “${title}” trong một tình huống khác; ghi lại điểm cần thay đổi.`,
 sourceType:'Khung bài tập do học viện biên soạn; cần giáo viên chuyên môn thẩm định trước khi dùng chính thức.'
 }}

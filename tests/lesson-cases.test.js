@@ -34,7 +34,7 @@ test('deep lesson shows the lesson-specific case', () => {
     const own = LESSON_CASES[lesson.id];
     assert.equal(d.concept, own.concept);
     assert.ok(d.scenario.includes(own.situation) && d.scenario.includes(own.task));
-    assert.ok(d.steps[1].includes(own.task));
+    if (own.teach) assert.deepEqual(d.steps, own.teach.steps); else assert.ok(d.steps[1].includes(own.task));
     assert.equal(d.misconception, own.misconception);
   }
 });

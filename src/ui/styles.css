@@ -253,3 +253,25 @@ details.card>summary{cursor:pointer;font-weight:700;color:var(--wine-text)}
 .confirm-box{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);width:min(440px,calc(100vw - 32px));background:var(--surface);color:var(--text);border:2px solid var(--wine-text);border-radius:16px;padding:16px;box-shadow:0 10px 30px rgba(0,0,0,.25);z-index:60}
 .confirm-box p{margin:0 0 12px;line-height:1.5}
 .confirm-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+
+/* Teaching layer: step-by-step, worked example, lesson exercise and quiz */
+.teach-card{border-top:4px solid var(--sage-deep)}
+.teach-steps{margin:0;padding-left:1.4rem;display:grid;gap:8px;line-height:1.55}
+.teach-steps li::marker{font-weight:800;color:var(--sage-deep)}
+.teach-example{margin:8px 0 0;padding:12px 14px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere;font:0.92rem/1.55 ui-monospace,Consolas,"Cascadia Mono",monospace;color:var(--text)}
+.exercise-card{border-top:4px solid var(--blue)}
+.exercise-card.passed{border-top-color:var(--sage-deep)}
+.formula-input{width:100%;font:1rem ui-monospace,Consolas,monospace;margin:6px 0}
+.ex-choices{display:grid;gap:8px;margin:8px 0}
+.ex-option{display:flex;gap:8px;align-items:flex-start;padding:8px 10px;border:1px solid var(--border);border-radius:10px;background:var(--surface);cursor:pointer;line-height:1.45}
+.ex-option input{margin-top:3px;accent-color:var(--wine-text)}
+.order-pool{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0}
+.order-item{text-align:left}
+.order-line{min-height:40px;padding:8px 8px 8px 1.8rem;border:1px dashed var(--brown);border-radius:10px;background:var(--surface-2);display:grid;gap:4px}
+.hint summary{cursor:pointer;color:var(--blue);font-weight:600}
+.more-practice>summary{cursor:pointer;font-weight:700;color:var(--text-muted)}
+.lesson-quiz .ex-option{margin:6px 0}
+.quiz-why{margin:6px 0 0;font-size:.92rem}
+.quiz-why.ok{color:var(--sage-deep)}
+.quiz-why.bad{color:var(--wine-text)}
+.ai-tools[hidden]{display:none}

@@ -113,3 +113,11 @@
 - 🎨 **Claude Design**: viết yêu cầu thiết kế, chỉnh trên canvas, hệ thống thiết kế, nguyên mẫu tương tác, Claude Slides, Claude Docs, chia sẻ, xuất tệp, bàn giao sang Claude Code (tra cứu Help Center và Claude Academy 11/2026).
 - 🌐 **Xuất bản web – Git, GitHub và Hostinger**: Git, nhánh, hoàn tác, GitHub, pull request, GitHub Pages, tên miền/DNS, hPanel, tải web lên public_html, tự triển khai từ GitHub, Node.js trên Hostinger, HTTPS, sao lưu, bảo mật. Đây là nội dung bài học; học viên có thể thực hành bằng GitHub Pages miễn phí.
 - Tổng: 16 môn / 448 bài; PDF 37 trang; 100/100 kiểm thử đạt.
+
+## Mẫu “dạy thật” cho môn Office (2026-11-13)
+- Mỗi bài trong 28 bài Office có thêm (tệp `src/data/courses-2026/office-teach.js`): **Làm từng bước** (4–6 bước, tên menu tiếng Anh kèm tiếng Việt), **Ví dụ mẫu** (công thức/mẫu hoàn chỉnh), **Bài luyện tự chấm** (gõ công thức, chọn đáp án hoặc sắp xếp bước) và **3 câu hỏi riêng của bài** kèm giải thích; thời lượng gợi ý thực tế.
+- Bài có phần này: bước Thực hành tính điểm bằng bài luyện (trò chơi chung chuyển thành “Luyện thêm, không tính điểm”); bước 3 là “Kiểm tra hiểu bài” (đúng 3/3 mới qua, được làm lại) thay cho nhiệm vụ 3 chặng chung.
+- Đáp án đúng được xoay đều 3 vị trí (trước đó 70/84 câu đáp án nằm ở vị trí đầu).
+- Ô công thức chấp nhận cả dấu `;` (Excel tiếng Việt) và `,`, không phân biệt hoa thường và khoảng trắng.
+- Sửa chung: mục tiêu giữ chữ viết tắt (XLOOKUP, AI, MCP); nút AI chỉ hiện khi máy chủ có cấu hình AI.
+- Kiểm thử: 106/106 (thêm `tests/teach.test.js`). Các môn khác chưa có lớp này.

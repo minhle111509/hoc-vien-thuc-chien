@@ -12,13 +12,17 @@ import {AUTOMATION} from './automation.js';
 import {LOCALAI} from './localai.js';
 import {CLAUDEDESIGN} from './claudedesign.js';
 import {WEBDEPLOY} from './webdeploy.js';
+import {OFFICE_TEACH} from './office-teach.js';
+
+// Teaching layer (how-to, worked example, exercise, lesson quiz) — pilot course: office.
+export const EXTRA_TEACH = {office: OFFICE_TEACH};
 
 // AI track order: foundations → connections (MCP) → agents at work (Cowork) → coding agents → building agents.
 export const EXTRA = [OFFICE, GEMINI, DESIGN, AIBASICS, MCP, COWORK, AUTOMATION, CLAUDEDESIGN, AICODE, WEBDEPLOY, AGENTDEV, LOCALAI];
 export const EXTRA_IDS = EXTRA.map(c => c.id);
 const byId = key => Object.fromEntries(EXTRA.map(c => [c.id, c[key]]));
 
-const lower = s => s.charAt(0).toLowerCase() + s.slice(1);
+const lower = s => (/^[A-ZĐ]{2}/.test(s) ? s : s.charAt(0).toLowerCase() + s.slice(1));
 // Same lesson shape as courses.js so every existing screen and test keeps working.
 function lessonObject(course, [title, , situation, task], i) {
   const n = i + 1;
@@ -34,7 +38,7 @@ function lessonObject(course, [title, , situation, task], i) {
     evidence: `Một minh chứng cụ thể về “${title}”: tệp sản phẩm, ảnh chụp màn hình hoặc bản giải thích có tiêu chí.`,
     verification: 'Đối chiếu với mục tiêu và tiêu chí, tìm ít nhất một lỗi hoặc giới hạn và đề xuất sửa.',
     transfer: `Nêu một tình huống mới ở trường hoặc ở nhà mà em có thể vận dụng “${lower(title)}”.`,
-    duration: '15–25 phút',
+    duration: EXTRA_TEACH[course.id]?.[n]?.minutes || '15–25 phút',
     checkpoint: n % 7 === 0,
   };
 }
@@ -47,7 +51,7 @@ export const EXTRA_COURSES = EXTRA.map(c => ({
 }));
 
 export const EXTRA_CASES = Object.fromEntries(EXTRA.flatMap(c => c.rows.map(([, concept, situation, task, misconception], i) =>
-  [`${c.id}-${i + 1}`, {concept, situation, task, misconception}])));
+  [`${c.id}-${i + 1}`, {concept, situation, task, misconception, ...(EXTRA_TEACH[c.id]?.[i + 1] ? {teach: EXTRA_TEACH[c.id][i + 1]} : {})}])));
 
 export const EXTRA_FRAMEWORKS = byId('framework');
 export const EXTRA_GAMES = byId('games');
