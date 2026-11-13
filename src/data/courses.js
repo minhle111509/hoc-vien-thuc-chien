@@ -1710,5 +1710,6 @@ export const courses = [
 ];
 
 // Courses added in November 2026 (Microsoft Office, Gemini, Design & short video).
-import {EXTRA_COURSES} from './courses-2026/index.js';
+import {EXTRA_COURSES, EXTRA_TEACH} from './courses-2026/index.js';
 courses.push(...EXTRA_COURSES);
+for (const c of courses) for (const [n, t] of Object.entries(EXTRA_TEACH[c.id] || {})) if (c.lessons[n - 1] && t.minutes) c.lessons[n - 1].duration = t.minutes;

@@ -463,7 +463,7 @@ const AGENT = [
 
 const toEntries = (course, rows) => rows.map(([concept, situation, task, misconception], i) => [`${course}-${i + 1}`, {concept, situation, task, misconception}]);
 
-import {EXTRA_CASES} from './courses-2026/index.js';
+import {EXTRA_CASES, EXTRA_TEACH} from './courses-2026/index.js';
 import {TOOL_UPDATES} from './tool-updates.js';
 
 export const LESSON_CASES = Object.fromEntries([
@@ -476,3 +476,6 @@ export const LESSON_CASES = Object.fromEntries([
 Object.assign(LESSON_CASES, EXTRA_CASES);
 // Optional "current features" note per lesson (see tool-updates.js).
 for (const [id, tools] of Object.entries(TOOL_UPDATES)) if (LESSON_CASES[id]) LESSON_CASES[id].tools = tools;
+
+// Teaching layer for courses defined in courses.js (e.g. Claude basics).
+for (const [course, byLesson] of Object.entries(EXTRA_TEACH)) for (const [n, teach] of Object.entries(byLesson)) { const c = LESSON_CASES[`${course}-${n}`]; if (c && !c.teach) c.teach = teach; }

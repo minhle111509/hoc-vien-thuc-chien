@@ -147,3 +147,9 @@
 - Thực hành trên trang: bảng tính mini (7 bài: SUM, IF, COUNTIF, SUMIF, XLOOKUP, CORREL, AVERAGE, $ và kéo công thức), Word mini (Styles), sắp xếp các bước (6 bài: mục lục, Mail Merge, Slide Master, lịch họp, quy trình…), xếp loại (11 bài), duyệt thay đổi / kế hoạch (4 bài), viết email (1 bài).
 - Bảng tính mini thêm XLOOKUP (không tự bỏ dấu cách, giống Excel), CORREL/PEARSON, ROUND, TRIM. Thêm phòng sắp xếp bước (`src/games/guided-order.js`).
 - Kiểm thử: 115/115; mỗi việc trong bảng tính có đáp án mẫu được kiểm thử tự giải; đã làm qua cả 28 bài trên trình duyệt.
+
+## Lộ trình Claude gộp thành một môn + Claude cơ bản theo kiểu học mới (2026-11-13)
+- Trang chủ gộp 4 môn liên quan Claude thành **một thẻ “Claude”** (`src/data/paths.js`): Phần 1 Claude cơ bản → Phần 2 Claude Cowork → Phần 3 Claude Design → Phần 4 Claude Code. Trang lộ trình có nút “Học tiếp”, nút nhảy tới từng phần; học xong phần trước có nút sang phần sau. Mã bài giữ nguyên nên tiến độ và bản sao lưu cũ vẫn dùng được. Trang chủ còn 13 môn.
+- 28 bài Claude cơ bản theo kiểu học từng bước (`claude-teach-1.js`, `claude-teach-2.js`): giao việc, prompt có cấu trúc, tiêu chí, kiểm chứng, tài liệu dài, phản biện, kế hoạch, Projects, quyền riêng tư (bộ nhớ, trò chuyện ẩn danh), thử nghiệm A/B…; bài 14 dùng bảng tính mini để bắt lỗi tính toán của AI.
+- Phòng thực hành cũ của bài 1–3 (phòng quyết định, nhiệm vụ đặc biệt, Phaser) chuyển vào mục “Luyện thêm”.
+- PDF chia lại: Lộ trình Claude / AI và AI Agent / Kỹ năng số. Kiểm thử: 117/117.

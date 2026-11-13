@@ -167,3 +167,42 @@ test('XLOOKUP and CORREL behave like Excel for the lessons', () => {
   const c = {A1: 1, A2: 2, A3: 3, B1: 2, B2: 4, B3: 6};
   assert.ok(Math.abs(evalFormula('=CORREL(A1:A3,B1:B3)', c).value - 1) < 1e-12);
 });
+
+test('Claude basics: all 28 lessons guided, labs valid, model answers solve sheet tasks', async () => {
+  const {deepLesson} = await import('../src/data/deep-lessons.js');
+  const questions = new Set();
+  for (let i = 0; i < 28; i++) {
+    const t = deepLesson('claude', i).teach;
+    assert.ok(t?.guided, `claude-${i + 1} missing guided`);
+    const g = t.guided;
+    assert.ok(g.outcome.length > 30 && g.analogy.length > 30 && g.walkthrough.length >= 3, `claude-${i + 1}`);
+    assert.equal(t.quiz.length, 3);
+    for (const qq of t.quiz) questions.add(qq.q);
+    if (g.lab.type === 'sort') for (const it of g.lab.items) assert.ok(g.lab.groups.includes(it.group), `claude-${i + 1}: ${it.text}`);
+    if (g.lab.type === 'brief') for (const f of g.lab.fields) {
+      const v = g.lab.example[f.key].toLowerCase();
+      assert.ok(v.length >= (f.minLen || 8) && (!f.any || f.any.some(k => v.includes(k))), `claude-${i + 1} example ${f.key}`);
+    }
+    if (g.lab.type === 'sheet') for (const task of g.lab.sheet.tasks) {
+      const got = evalFormula(task.answer, g.lab.sheet.cells).value;
+      assert.ok(Math.abs(got - task.expect) < 1e-9, `claude-${i + 1} ${task.cell}`);
+    }
+  }
+  assert.equal(questions.size, 84);
+});
+
+test('the Claude learning path groups four courses into one subject without changing lesson ids', async () => {
+  const {PATHS, pathOf, homeItems, nextPartStart} = await import('../src/data/paths.js');
+  const {courses} = await import('../src/data/courses.js');
+  const path = PATHS.find(p => p.id === 'claude-path');
+  assert.deepEqual(path.parts.map(p => p.course), ['claude', 'cowork', 'claudedesign', 'aicode']);
+  for (const part of path.parts) assert.ok(courses.find(c => c.id === part.course), part.course);
+  assert.equal(pathOf('cowork').id, 'claude-path');
+  assert.equal(pathOf('office'), null);
+  const items = homeItems();
+  assert.equal(items.filter(it => it.type === 'path').length, 1);
+  assert.equal(items.length, courses.length - path.parts.length + 1);
+  assert.equal(nextPartStart('claude').course.id, 'cowork');
+  assert.equal(nextPartStart('aicode'), null);
+  assert.equal(courses.find(c => c.id === 'claude').lessons[0].id, 'claude-1', 'ids unchanged, saved progress still matches');
+});

@@ -77,7 +77,8 @@ def clean(text):
 
 # Suggested learning paths shown on the overview page.
 TRACKS = [
-    ('Lộ trình AI & AI Agent', ['aibasics', 'claude', 'chatgpt', 'gemini', 'mcp', 'cowork', 'automation', 'claudedesign', 'agent', 'aicode', 'agentdev', 'localai']),
+    ('Lộ trình Claude (một môn, 4 phần)', ['claude', 'cowork', 'claudedesign', 'aicode']),
+    ('AI và AI Agent', ['aibasics', 'chatgpt', 'gemini', 'mcp', 'automation', 'agent', 'agentdev', 'localai']),
     ('Kỹ năng số, truyền thông & xuất bản web', ['office', 'photo', 'design', 'webdeploy']),
 ]
 
@@ -183,7 +184,7 @@ def build():
     # Cover and overview
     story += [Spacer(1, 30 * mm), Paragraph('HỌC VIỆN THỰC CHIẾN', S['title']), Spacer(1, 4 * mm),
               Paragraph('Chương trình học bằng trải nghiệm · AI, AI Agent và kỹ năng số', S['subtitle']), Spacer(1, 3 * mm),
-              Paragraph(f'{len(courses)} khóa học · {total} nhiệm vụ · cập nhật {date.today().strftime("%d/%m/%Y")}', S['subtitle']),
+              Paragraph(f'{len(courses) - len(TRACKS[0][1]) + 1} môn học · {total} nhiệm vụ · cập nhật {date.today().strftime("%d/%m/%Y")}', S['subtitle']),
               Spacer(1, 14 * mm)]
     intro = ('Mỗi khóa gồm 28 nhiệm vụ chia 4 chặng, mỗi chặng kết thúc bằng một đồ án. Mỗi nhiệm vụ có kiến thức cốt lõi, '
              'tình huống thực tế, bài thực hành, ngộ nhận thường gặp, trò chơi mô phỏng, nhiệm vụ ba chặng ra quyết định '
