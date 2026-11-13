@@ -11,7 +11,7 @@ import {rubricFor} from '../src/core/professional-rubric.js';
 import {validateState, validatePilot} from '../src/core/store.js';
 
 test('every 2026 course is a full 28-lesson courses with 4 stages', () => {
-  assert.deepEqual(EXTRA_IDS, ['office', 'gemini', 'design', 'aibasics', 'mcp', 'cowork', 'automation', 'aicode', 'agentdev', 'localai']);
+  assert.deepEqual(EXTRA_IDS, ['office', 'gemini', 'design', 'aibasics', 'mcp', 'cowork', 'automation', 'claudedesign', 'aicode', 'webdeploy', 'agentdev', 'localai']);
   for (const id of EXTRA_IDS) {
     const c = courses.find(x => x.id === id);
     assert.ok(c, id);

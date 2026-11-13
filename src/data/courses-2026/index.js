@@ -10,9 +10,11 @@ import {AICODE} from './aicode.js';
 import {AGENTDEV} from './agentdev.js';
 import {AUTOMATION} from './automation.js';
 import {LOCALAI} from './localai.js';
+import {CLAUDEDESIGN} from './claudedesign.js';
+import {WEBDEPLOY} from './webdeploy.js';
 
 // AI track order: foundations → connections (MCP) → agents at work (Cowork) → coding agents → building agents.
-export const EXTRA = [OFFICE, GEMINI, DESIGN, AIBASICS, MCP, COWORK, AUTOMATION, AICODE, AGENTDEV, LOCALAI];
+export const EXTRA = [OFFICE, GEMINI, DESIGN, AIBASICS, MCP, COWORK, AUTOMATION, CLAUDEDESIGN, AICODE, WEBDEPLOY, AGENTDEV, LOCALAI];
 export const EXTRA_IDS = EXTRA.map(c => c.id);
 const byId = key => Object.fromEntries(EXTRA.map(c => [c.id, c[key]]));
 

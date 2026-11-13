@@ -77,8 +77,8 @@ def clean(text):
 
 # Suggested learning paths shown on the overview page.
 TRACKS = [
-    ('Lộ trình AI & AI Agent', ['aibasics', 'claude', 'chatgpt', 'gemini', 'mcp', 'cowork', 'automation', 'agent', 'aicode', 'agentdev', 'localai']),
-    ('Kỹ năng số & truyền thông', ['office', 'photo', 'design']),
+    ('Lộ trình AI & AI Agent', ['aibasics', 'claude', 'chatgpt', 'gemini', 'mcp', 'cowork', 'automation', 'claudedesign', 'agent', 'aicode', 'agentdev', 'localai']),
+    ('Kỹ năng số, truyền thông & xuất bản web', ['office', 'photo', 'design', 'webdeploy']),
 ]
 
 

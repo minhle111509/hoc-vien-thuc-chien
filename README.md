@@ -108,3 +108,8 @@
 - **Bản web tĩnh**: `npm run build:site` → `dist/`; `npm run build:zip` → `hoc-vien-web-hostinger.zip` để tải lên `public_html` của Hostinger. `npm start` chạy máy chủ Node (cho gói Node.js của Hostinger).
 - Đã đăng bản web lên claude.ai (riêng tư, chia sẻ từ menu Share của trang). Trong bản này không có AI chấm bài (cần máy chủ Node + khóa OpenAI); tải PDF/sao lưu dùng chức năng tải xuống của Claude; hộp xác nhận làm ngay trong trang (thay `confirm()`).
 - Kiểm thử: 96/96 đạt; đã duyệt cả 392 bài trong trình duyệt, không lỗi JavaScript.
+
+## Thêm Claude Design và Xuất bản web (2026-11-13)
+- 🎨 **Claude Design**: viết yêu cầu thiết kế, chỉnh trên canvas, hệ thống thiết kế, nguyên mẫu tương tác, Claude Slides, Claude Docs, chia sẻ, xuất tệp, bàn giao sang Claude Code (tra cứu Help Center và Claude Academy 11/2026).
+- 🌐 **Xuất bản web – Git, GitHub và Hostinger**: Git, nhánh, hoàn tác, GitHub, pull request, GitHub Pages, tên miền/DNS, hPanel, tải web lên public_html, tự triển khai từ GitHub, Node.js trên Hostinger, HTTPS, sao lưu, bảo mật. Đây là nội dung bài học; học viên có thể thực hành bằng GitHub Pages miễn phí.
+- Tổng: 16 môn / 448 bài; PDF 37 trang; 100/100 kiểm thử đạt.

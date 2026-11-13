@@ -1,7 +1,7 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {rubric,promptAudit,inspectClaim,inspectAgentFlow,photoScore,nextDifficulty} from '../src/core/engine.js';
 import {courses} from '../src/data/courses.js';import {gameType} from '../src/games/registry.js';import {validateState,defaultState} from '../src/core/store.js';
-test('392 lessons with unique ids',()=>{assert.equal(courses.length,14);assert.equal(courses.reduce((a,c)=>a+c.lessons.length,0),392);assert.equal(new Set(courses.flatMap(c=>c.lessons.map(l=>l.id))).size,392)});
+test('448 lessons with unique ids',()=>{assert.equal(courses.length,16);assert.equal(courses.reduce((a,c)=>a+c.lessons.length,0),448);assert.equal(new Set(courses.flatMap(c=>c.lessons.map(l=>l.id))).size,448)});
 test('game registry supports all courses',()=>{for(const c of courses)for(let i=1;i<=21;i++)assert.ok(['prompt','agent','detective','composition','lighting','exposure','color','sequence','compare','debug'].includes(gameType(c.id,i)))});
 test('rubric is transparent',()=>{assert.equal(rubric({objective:true,reason:true,verified:true,artifact:true}).score,100);assert.equal(rubric({objective:true}).passed,false)});
 test('prompt scoring recognizes parts',()=>{assert.equal(promptAudit('Hãy lập kế hoạch cho học sinh, trình bày dạng bảng và kiểm chứng nguồn.').score,100);assert.ok(promptAudit('xin chào').score<100)});

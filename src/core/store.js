@@ -1,7 +1,7 @@
 const KEY='academy_v11_state';
 // Keep in sync with courses.js (store stays free of the heavy curriculum import).
-const ALL_COURSES=['photo','claude','chatgpt','agent','office','gemini','design','aibasics','mcp','cowork','aicode','agentdev','automation','localai'];
-const LESSON_RE=/^(photo|claude|chatgpt|agent|office|gemini|design|aibasics|mcp|cowork|aicode|agentdev|automation|localai)-\d{1,2}$/;
+const ALL_COURSES=['photo','claude','chatgpt','agent','office','gemini','design','aibasics','mcp','cowork','aicode','agentdev','automation','localai','claudedesign','webdeploy'];
+const LESSON_RE=/^(photo|claude|chatgpt|agent|office|gemini|design|aibasics|mcp|cowork|aicode|agentdev|automation|localai|claudedesign|webdeploy)-\d{1,2}$/;
 export function defaultState(){return {version:1,selected:'chatgpt',progress:{},portfolio:[],xp:0};}
 export function validateState(data){if(!data||typeof data!=='object'||Array.isArray(data))throw Error('Dữ liệu không hợp lệ');const s=defaultState();if(ALL_COURSES.includes(data.selected))s.selected=data.selected;if(data.progress&&typeof data.progress==='object'&&!Array.isArray(data.progress))for(const [k,v] of Object.entries(data.progress).slice(0,800)){if(LESSON_RE.test(k)&&v&&typeof v==='object'){s.progress[k]={score:Number.isFinite(v.score)?Math.max(0,Math.min(100,v.score)):0,completed:v.completed===true,attempts:Number.isInteger(v.attempts)?Math.max(0,Math.min(999,v.attempts)):0};}}if(Array.isArray(data.portfolio))s.portfolio=data.portfolio.slice(0,100).filter(x=>x&&typeof x==='object').map(x=>({lesson:String(x.lesson||'').slice(0,40),title:String(x.title||'').slice(0,150),text:String(x.text||'').slice(0,2500),date:String(x.date||'').slice(0,30)}));s.xp=Object.values(s.progress).filter(v=>v.completed).length*20;return s;}
 export function loadState(){try{return validateState(JSON.parse(localStorage.getItem(KEY)))}catch{return defaultState()}}
