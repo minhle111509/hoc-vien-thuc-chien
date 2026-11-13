@@ -64,3 +64,30 @@ test('the sheet tasks accept the taught answer and reject the classic mistakes',
   assert.equal(solve(grades, countTask, '=COUNTIF(C2:C9,">=8")'), true);
   assert.equal(solve(grades, sumTask, '=SUMIF(B2:B9,"Tổ 1",D2:D9)'), true);
 });
+
+test('Cowork trial lessons: guided content, valid labs and balanced quizzes', async () => {
+  const {COWORK_TEACH} = await import('../src/data/courses-2026/cowork-teach.js');
+  const positions = [0, 0, 0];
+  for (const n of [1, 3, 4]) {
+    const t = COWORK_TEACH[n];
+    assert.ok(t.guided.outcome.length > 30 && t.guided.analogy.length > 30, `cowork-${n}`);
+    assert.ok(t.guided.walkthrough.length >= 5);
+    assert.equal(t.quiz.length, 3);
+    for (const q of t.quiz) { assert.equal(q.options.length, 3); positions[q.answer]++; }
+    const lab = t.guided.lab;
+    if (lab.type === 'sort') for (const it of lab.items) assert.ok(lab.groups.includes(it.group) && it.why.length > 10);
+    if (lab.type === 'plan') {
+      assert.ok(lab.steps.some(s => s.ok.includes('keep')) && lab.steps.some(s => s.ok.includes('remove')));
+      for (const s of lab.steps) assert.ok(s.ok.every(v => ['keep', 'ask', 'remove'].includes(v)) && s.why.length > 10);
+    }
+    if (lab.type === 'brief') {
+      // The sample brief must itself pass every check, otherwise learners copying its pattern would fail.
+      for (const f of lab.fields) {
+        const v = lab.example[f.key].toLowerCase();
+        assert.ok(v.length >= (f.minLen || 8) && (!f.any || f.any.some(k => v.includes(k))), `example ${f.key}`);
+      }
+      assert.ok(lab.plan(lab.example).length >= 4);
+    }
+  }
+  assert.ok(positions.every(p => p >= 2), `answer positions ${positions}`);
+});

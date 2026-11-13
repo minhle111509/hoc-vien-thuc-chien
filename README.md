@@ -130,3 +130,8 @@
   - Chấm theo kết quả: thiếu `$` thấy ngay ô lỗi #VALUE!; gõ thẳng số bị phát hiện khi đổi giá; `>8` thay cho `>=8` bị phát hiện ở bạn được đúng 8 điểm.
   - Phần kiến thức đầy đủ, dụng cụ, an toàn gập vào “Xem thêm”.
 - Kiểm thử: 111/111 (thêm `tests/guided.test.js`). 25 bài Office còn lại vẫn dùng mẫu trước.
+
+## Thử cách dạy cho người mới: 3 bài Claude Cowork (2026-11-13)
+- Bài 1 (Cowork là gì), bài 3 (viết bản giao việc), bài 4 (đọc và duyệt kế hoạch) dùng cùng kiểu học từng bước như 3 bài Office thử nghiệm (`src/data/courses-2026/cowork-teach.js`).
+- Thêm các phần mô phỏng trong `src/games/guided-agent.js`: hình màn hình Claude khoanh phần cần dùng, hội thoại mẫu, phòng **xếp việc** (Chat / Cowork / Tự làm), phòng **viết bản giao việc** (Claude mô phỏng hỏi lại phần còn thiếu, đủ thì lập kế hoạch), phòng **duyệt kế hoạch** (Giữ / Hỏi lại / Bỏ từng bước, có giải thích).
+- Học được cả khi chưa có gói Claude trả phí. Kiểm thử: 112/112.

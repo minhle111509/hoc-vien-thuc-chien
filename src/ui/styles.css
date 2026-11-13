@@ -349,3 +349,41 @@ details.card>summary{cursor:pointer;font-weight:700;color:var(--wine-text)}
 .word-line.st-heading1{font-size:1.3rem;font-weight:700;color:var(--blue)}
 .word-line.st-heading2{font-size:1.1rem;font-weight:700;color:var(--text)}
 .more-know>summary{cursor:pointer;font-weight:700;color:var(--text-muted)}
+
+/* Guided agent lessons (Claude Cowork trial) */
+.claude-pic{margin:12px 0;border:1px solid var(--border);border-radius:12px;overflow:hidden;background:var(--surface)}
+.cp-frame{display:grid;grid-template-columns:minmax(120px,170px) 1fr;min-height:200px}
+@media(max-width:560px){.cp-frame{grid-template-columns:1fr}.cp-side{flex-direction:row;flex-wrap:wrap}}
+.cp-side{display:flex;flex-direction:column;gap:4px;padding:10px;background:var(--surface-2);border-right:1px solid var(--border);font-size:.86rem}
+.cp-side-item{padding:6px 8px;border-radius:8px}
+.cp-main{display:flex;flex-direction:column;justify-content:space-between;gap:10px;padding:12px;min-width:0}
+.cp-empty{color:var(--text-muted);text-align:center;padding:18px 6px;font-size:1.05rem}
+.cp-plan{padding:10px 12px;border:1px solid var(--border);border-radius:10px;background:var(--surface-2)}
+.cp-plan ol{margin:6px 0;padding-left:1.4rem;display:grid;gap:3px}
+.cp-plan-actions{font-size:.85rem;color:var(--text-muted)}
+.cp-box{border:1px solid var(--border);border-radius:12px;padding:8px 10px;background:var(--surface)}
+.cp-input{display:block;color:var(--text-muted);margin-bottom:8px}
+.cp-tools{display:flex;flex-wrap:wrap;gap:6px}
+.cp-chip{padding:4px 9px;border:1px solid var(--border);border-radius:99px;font-size:.82rem;background:var(--surface-2)}
+.cp-chip.send{margin-left:auto;background:var(--wine);color:var(--on-accent);border-color:var(--wine)}
+.claude-pic .hl{outline:3px solid var(--wine-text);outline-offset:2px;font-weight:700;background:var(--wine-soft)}
+.chat-pic{display:grid;gap:8px;margin:10px 0}
+.chat-bubble{margin:0;padding:9px 12px;border-radius:14px;max-width:85%;line-height:1.5}
+.chat-bubble.you{justify-self:end;background:var(--blue-soft)}
+.chat-bubble.claude{justify-self:start;background:var(--surface-2);border:1px solid var(--border)}
+.sort-items{display:grid;gap:10px;margin:8px 0 12px}
+.sort-row{padding:10px 12px;border:1px solid var(--border);border-radius:12px;background:var(--surface)}
+.sort-text{margin:0 0 8px;font-weight:600;line-height:1.5}
+.sort-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sort-btn{min-height:40px}
+.sort-btn.on{background:var(--wine-soft);border-color:var(--wine-text);font-weight:700}
+.sort-btn.v-remove.on{background:var(--wine-soft)}
+.sort-btn.v-keep.on{background:var(--sage-soft);border-color:var(--sage-deep)}
+.sort-btn.v-ask.on{background:var(--blue-soft);border-color:var(--blue)}
+.brief-fields{display:grid;gap:10px}
+.brief-field{display:grid;gap:4px}
+.brief-label{font-weight:700}
+.brief-input{min-height:56px;margin:0}
+.brief-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+.brief-example{margin:4px 0;line-height:1.5}
+.plan-task{padding:10px 12px;border-radius:10px;background:var(--blue-soft);font-weight:600}

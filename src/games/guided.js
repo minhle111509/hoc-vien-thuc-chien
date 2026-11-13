@@ -4,6 +4,7 @@
 //  - mountSheet: a small spreadsheet where learners type real formulas and see results
 //  - mountStyleLab: a mini Word page to practise Heading styles and the Navigation Pane
 import {evalFormula, shiftFormula, referencedCells, formatValue, isErr, parseRef, refName} from '../core/formula.js';
+import {claudeScreen, chatPicture} from './guided-agent.js';
 
 const h = (tag, cls = '', text = '') => { const n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; };
 const button = (label, fn, cls = '') => { const b = h('button', cls, label); b.type = 'button'; b.addEventListener('click', fn); return b; };
@@ -59,6 +60,8 @@ export function mountWalkthrough(parent, steps, {onFinish} = {}) {
     body.append(h('h4', 'walk-title', s.title));
     for (const para of [].concat(s.text)) body.append(h('p', 'walk-text', para));
     if (s.ribbon) body.append(ribbonPicture(s.ribbon));
+    if (s.screen) body.append(claudeScreen(s.screen));
+    if (s.chat) body.append(chatPicture(s.chat));
     if (s.sheet) mountSheet(body, s.sheet);
     if (s.terms) {
       const box = h('dl', 'walk-terms');
