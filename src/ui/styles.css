@@ -398,3 +398,26 @@ details.card>summary{cursor:pointer;font-weight:700;color:var(--wine-text)}
 .path-jump{font-size:.9rem}
 .path-part{margin-top:22px;scroll-margin-top:12px}
 .path-part h2{margin:0 0 4px;color:var(--wine-text)}
+
+/* Claude Design pictures */
+.dp-top{display:flex;flex-wrap:wrap;gap:6px;padding:8px 10px;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.dp-body{display:grid;grid-template-columns:minmax(140px,1fr) 2fr;min-height:190px}
+@media(max-width:560px){.dp-body{grid-template-columns:1fr}}
+.dp-chat{display:flex;flex-direction:column;gap:6px;padding:10px;border-right:1px solid var(--border);font-size:.85rem}
+.dp-msg{margin:0;padding:6px 8px;border-radius:10px;background:var(--surface-2)}
+.dp-canvas{padding:10px;background:repeating-linear-gradient(45deg,var(--surface-2) 0 10px,var(--surface) 10px 20px);display:flex;flex-direction:column;gap:8px;align-items:center}
+.dp-tools{display:flex;flex-wrap:wrap;gap:6px;align-self:stretch}
+.dp-board{width:min(220px,100%);aspect-ratio:3/4;max-width:100%;background:#fdf6ec;color:#3a2a20;border-radius:6px;box-shadow:0 2px 8px rgba(0,0,0,.2);padding:14px;display:flex;flex-direction:column;gap:8px;justify-content:center}
+.dp-board-title{font-weight:800;font-size:1.05rem;color:#7b1e3a}
+.dp-board-sub{font-size:.8rem}
+.dp-board-btn{align-self:flex-start;background:#7b1e3a;color:#fff;padding:4px 10px;border-radius:99px;font-size:.78rem}
+.poster-row{display:flex;flex-wrap:wrap;gap:12px;margin:12px 0}
+.poster-fig{margin:0;flex:1 1 180px;max-width:260px}
+.poster{aspect-ratio:3/4;max-width:100%;border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:6px;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.18);overflow:hidden;font-family:system-ui,sans-serif}
+.poster.crowded{justify-content:flex-start;gap:2px}
+.poster-title{font-weight:800;line-height:1.2}
+.poster-sub{font-size:.85rem;font-weight:600}
+.poster-line{font-size:.78rem;line-height:1.35}
+.poster-label{margin-top:6px;text-align:center;font-weight:700;font-size:.9rem}
+.poster-label.bad{color:var(--wine-text)}
+.poster-label.good{color:var(--sage-deep)}

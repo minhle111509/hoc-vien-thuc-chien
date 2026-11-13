@@ -23,6 +23,8 @@ import {COWORK_TEACH_3} from './cowork-teach-3.js';
 import {balanceQuizzes} from './balance.js';
 import {CLAUDE_TEACH_1} from './claude-teach-1.js';
 import {CLAUDE_TEACH_2} from './claude-teach-2.js';
+import {CLAUDEDESIGN_TEACH_1} from './claudedesign-teach-1.js';
+import {CLAUDEDESIGN_TEACH_2} from './claudedesign-teach-2.js';
 // Claude basics (part 1 of the Claude learning path) — the course itself lives in courses.js.
 const CLAUDE_TEACH = balanceQuizzes({...CLAUDE_TEACH_1, ...CLAUDE_TEACH_2});
 // Whole Cowork course in the guided format (lessons 1, 3, 4 were the trial).
@@ -31,7 +33,7 @@ Object.assign(COWORK_TEACH, balanceQuizzes({...COWORK_TEACH_2, ...COWORK_TEACH_3
 for (const [n, g] of Object.entries(OFFICE_GUIDED)) OFFICE_TEACH[n].guided = g;
 
 // Teaching layer (how-to, worked example, exercise, lesson quiz) — pilot course: office.
-export const EXTRA_TEACH = {office: OFFICE_TEACH, cowork: COWORK_TEACH, claude: CLAUDE_TEACH};
+export const EXTRA_TEACH = {office: OFFICE_TEACH, cowork: COWORK_TEACH, claude: CLAUDE_TEACH, claudedesign: balanceQuizzes({...CLAUDEDESIGN_TEACH_1, ...CLAUDEDESIGN_TEACH_2})};
 
 // AI track order: foundations → connections (MCP) → agents at work (Cowork) → coding agents → building agents.
 export const EXTRA = [OFFICE, GEMINI, DESIGN, AIBASICS, MCP, COWORK, AUTOMATION, CLAUDEDESIGN, AICODE, WEBDEPLOY, AGENTDEV, LOCALAI];

@@ -206,3 +206,41 @@ test('the Claude learning path groups four courses into one subject without chan
   assert.equal(nextPartStart('aicode'), null);
   assert.equal(courses.find(c => c.id === 'claude').lessons[0].id, 'claude-1', 'ids unchanged, saved progress still matches');
 });
+
+test('the whole Claude Design course uses the guided format with working labs', async () => {
+  const {EXTRA_TEACH, EXTRA_COURSES} = await import('../src/data/courses-2026/index.js');
+  const course = EXTRA_COURSES.find(c => c.id === 'claudedesign');
+  const T = EXTRA_TEACH.claudedesign;
+  const questions = new Set();
+  const answers = [0, 0, 0];
+  for (let n = 1; n <= 28; n++) {
+    const t = T[n];
+    assert.ok(t?.guided, `claudedesign-${n} missing`);
+    assert.equal(course.lessons[n - 1].duration, t.minutes);
+    assert.ok(t.steps.length >= 4, `claudedesign-${n} steps`);
+    const g = t.guided;
+    assert.ok(g.outcome.length > 30 && g.analogy.length > 30, `claudedesign-${n} intro`);
+    assert.ok(g.walkthrough.length >= 3, `claudedesign-${n} walkthrough`);
+    for (const s of g.walkthrough) {
+      assert.ok(s.title && [].concat(s.text).every(x => x.length > 20), `claudedesign-${n}: ${s.title}`);
+      if (s.posters) assert.ok(s.posters.length >= 2 && s.posters.every(p => p.label && p.bg && p.fg && p.title), `claudedesign-${n} posters`);
+      if (s.design) assert.ok(['comment', 'edit', 'sliders', 'share', 'export', 'chat', 'system', 'canvas'].includes(s.design.highlight), `claudedesign-${n} design`);
+    }
+    assert.ok(['sort', 'brief', 'plan', 'order'].includes(g.lab.type), `claudedesign-${n} lab`);
+    if (g.lab.type === 'sort') {
+      assert.ok(g.lab.items.length >= 5);
+      for (const it of g.lab.items) assert.ok(g.lab.groups.includes(it.group), `claudedesign-${n}: ${it.text}`);
+      assert.ok(new Set(g.lab.items.map(i => i.group)).size >= 2, `claudedesign-${n} uses one group only`);
+    }
+    if (g.lab.type === 'order') assert.ok(g.lab.items.length >= 4 && g.lab.explain, `claudedesign-${n} order`);
+    if (g.lab.type === 'plan') assert.ok(g.lab.steps.some(s => s.ok.includes('keep')) && g.lab.steps.some(s => !s.ok.includes('keep')), `claudedesign-${n} plan`);
+    if (g.lab.type === 'brief') for (const f of g.lab.fields) {
+      const v = g.lab.example[f.key].toLowerCase();
+      assert.ok(v.length >= (f.minLen || 8) && (!f.any || f.any.some(k => v.includes(k))), `claudedesign-${n} example ${f.key}`);
+    }
+    assert.equal(t.quiz.length, 3);
+    for (const qq of t.quiz) { assert.ok(qq.answer >= 0 && qq.answer < qq.options.length); questions.add(qq.q); answers[qq.answer]++; }
+  }
+  assert.equal(questions.size, 84, 'no question reused across lessons');
+  assert.ok(Math.max(...answers) - Math.min(...answers) <= 12, `answers spread ${answers}`);
+});

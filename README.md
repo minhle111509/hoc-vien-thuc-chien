@@ -153,3 +153,9 @@
 - 28 bài Claude cơ bản theo kiểu học từng bước (`claude-teach-1.js`, `claude-teach-2.js`): giao việc, prompt có cấu trúc, tiêu chí, kiểm chứng, tài liệu dài, phản biện, kế hoạch, Projects, quyền riêng tư (bộ nhớ, trò chuyện ẩn danh), thử nghiệm A/B…; bài 14 dùng bảng tính mini để bắt lỗi tính toán của AI.
 - Phòng thực hành cũ của bài 1–3 (phòng quyết định, nhiệm vụ đặc biệt, Phaser) chuyển vào mục “Luyện thêm”.
 - PDF chia lại: Lộ trình Claude / AI và AI Agent / Kỹ năng số. Kiểm thử: 117/117.
+
+## Claude Design (Phần 3 lộ trình Claude) theo kiểu học mới (2026-11-13)
+- 28 bài Claude Design theo kiểu học từng bước (`claudedesign-teach-1.js`, `claudedesign-teach-2.js`): viết yêu cầu thiết kế, sửa trên canvas / bình luận / thanh trượt, nhiều phương án, dễ đọc, hệ thống thiết kế (tạo, kiểm tra, Published, phiên bản), bản quyền, nguyên mẫu, thử với người dùng, Claude Slides, Claude Docs, landing page, biểu đồ trung thực, chia sẻ, xuất tệp, bàn giao cho Claude Code, hạn mức, đạo đức.
+- Hình minh họa mới (`src/games/guided-design.js`): màn hình Claude Design khoanh nút cần dùng, và poster “chưa tốt / tốt” đặt cạnh nhau để học viên nhìn thấy khác biệt (tương phản, nhồi chữ, logo méo, trục biểu đồ bị cắt…).
+- Thực hành: xếp loại (17 bài), sắp xếp bước (4 bài), viết yêu cầu (3 bài: poster, slide, ghi chú bàn giao), duyệt kế hoạch đồ án (4 bài).
+- Kiểm thử: 118/118; đã làm thử cả 28 bài trên trình duyệt.
