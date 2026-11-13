@@ -113,7 +113,7 @@ export function mountBriefLab(parent, spec, {onPass} = {}) {
     const v = inputs[f.key].value.trim().toLowerCase();
     return v.length < (f.minLen || 8) || (f.any && !f.any.some(k => v.includes(k)));
   });
-  const send = button('➤ Gửi cho Claude (mô phỏng)', () => {
+  const send = button(spec.sendLabel || '➤ Gửi cho Claude (mô phỏng)', () => {
     const missing = missingFields();
     if (missing.length) {
       reply.replaceChildren(chatPicture(missing.map(f => ({who: 'claude', text: f.ask}))), h('p', 'muted', `Claude còn ${missing.length} câu hỏi. Trả lời bằng cách bổ sung vào ô tương ứng rồi gửi lại.`));
@@ -123,12 +123,12 @@ export function mountBriefLab(parent, spec, {onPass} = {}) {
     const plan = h('div', 'cp-plan');
     const ol = h('ol');
     spec.plan(values).forEach(t => ol.append(h('li', '', t)));
-    plan.append(h('strong', '', 'Claude: “Tôi đã hiểu. Đây là kế hoạch, em duyệt nhé?”'), ol);
-    reply.replaceChildren(plan, h('p', 'sheet-done', '✓ Bản giao việc đủ rõ: Claude không cần hỏi lại và lập được kế hoạch.'));
+    plan.append(h('strong', '', spec.resultTitle || 'Claude: “Tôi đã hiểu. Đây là kế hoạch, em duyệt nhé?”'), ol);
+    reply.replaceChildren(plan, h('p', 'sheet-done', spec.doneText || '✓ Bản giao việc đủ rõ: Claude không cần hỏi lại và lập được kế hoạch.'));
     onPass?.();
   }, 'primary');
-  const example = button('Xem bản giao việc mẫu', () => {
-    reply.replaceChildren(h('p', 'muted', 'Bản mẫu (cho một việc khác). Đọc xong, em tự viết cho việc của em:'), ...spec.fields.map(f => { const p = h('p', 'brief-example'); p.append(h('strong', '', f.label + ': '), document.createTextNode(spec.example[f.key])); return p; }));
+  const example = button(spec.exampleLabel || 'Xem bản mẫu', () => {
+    reply.replaceChildren(h('p', 'muted', 'Bản mẫu (cho một tình huống khác). Đọc xong, em tự viết cho tình huống của em:'), ...spec.fields.map(f => { const p = h('p', 'brief-example'); p.append(h('strong', '', f.label + ': '), document.createTextNode(spec.example[f.key])); return p; }));
   });
   const actions = h('div', 'brief-actions');
   actions.append(send, example);

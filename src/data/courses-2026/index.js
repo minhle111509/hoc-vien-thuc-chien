@@ -15,6 +15,11 @@ import {WEBDEPLOY} from './webdeploy.js';
 import {OFFICE_TEACH} from './office-teach.js';
 import {OFFICE_GUIDED} from './office-guided.js';
 import {COWORK_TEACH} from './cowork-teach.js';
+import {COWORK_TEACH_2} from './cowork-teach-2.js';
+import {COWORK_TEACH_3} from './cowork-teach-3.js';
+import {balanceQuizzes} from './balance.js';
+// Whole Cowork course in the guided format (lessons 1, 3, 4 were the trial).
+Object.assign(COWORK_TEACH, balanceQuizzes({...COWORK_TEACH_2, ...COWORK_TEACH_3}));
 // Beginner walkthrough + in-page lab (trial on 3 lessons).
 for (const [n, g] of Object.entries(OFFICE_GUIDED)) OFFICE_TEACH[n].guided = g;
 

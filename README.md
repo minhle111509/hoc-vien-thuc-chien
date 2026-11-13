@@ -135,3 +135,9 @@
 - Bài 1 (Cowork là gì), bài 3 (viết bản giao việc), bài 4 (đọc và duyệt kế hoạch) dùng cùng kiểu học từng bước như 3 bài Office thử nghiệm (`src/data/courses-2026/cowork-teach.js`).
 - Thêm các phần mô phỏng trong `src/games/guided-agent.js`: hình màn hình Claude khoanh phần cần dùng, hội thoại mẫu, phòng **xếp việc** (Chat / Cowork / Tự làm), phòng **viết bản giao việc** (Claude mô phỏng hỏi lại phần còn thiếu, đủ thì lập kế hoạch), phòng **duyệt kế hoạch** (Giữ / Hỏi lại / Bỏ từng bước, có giải thích).
 - Học được cả khi chưa có gói Claude trả phí. Kiểm thử: 112/112.
+
+## Môn Claude Cowork hoàn chỉnh theo kiểu học cho người mới (2026-11-13)
+- Cả 28 bài Cowork dùng kiểu học từng bước: “Học xong em làm được…”, so sánh đời thường, các bước có hình màn hình Claude / hội thoại mẫu / từ mới, phòng mô phỏng chạy trên trang và 3 câu hỏi riêng (tệp `cowork-teach.js`, `cowork-teach-2.js`, `cowork-teach-3.js`).
+- Phòng mô phỏng: xếp việc (18 bài: chọn mức quyền kết nối, thư mục nên chia sẻ, nguồn đáng tin, chỉ dẫn đáng ngờ, cột dữ liệu cần ẩn danh…), viết bản giao việc / hướng dẫn / skill / việc định kỳ / đặc tả plugin (5 bài, Claude mô phỏng hỏi lại phần thiếu), duyệt kế hoạch (6 bài, có bước nguy hiểm cài sẵn).
+- Đáp án đúng các câu hỏi được xoay đều 3 vị trí (`balance.js`). Thời lượng gợi ý theo từng bài.
+- Kiểm thử: 113/113; đã duyệt và làm thử phòng mô phỏng của cả 28 bài trên trình duyệt. Nội dung do AI hỗ trợ biên soạn theo Help Center của Claude, cần người dạy rà lại.

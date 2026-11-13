@@ -91,3 +91,35 @@ test('Cowork trial lessons: guided content, valid labs and balanced quizzes', as
   }
   assert.ok(positions.every(p => p >= 2), `answer positions ${positions}`);
 });
+
+test('the whole Cowork course uses the guided format with working labs', async () => {
+  const {EXTRA_TEACH} = await import('../src/data/courses-2026/index.js');
+  const {courses} = await import('../src/data/courses.js');
+  const cowork = courses.find(c => c.id === 'cowork');
+  const T = EXTRA_TEACH.cowork;
+  const questions = new Set();
+  for (let n = 1; n <= 28; n++) {
+    const t = T[n];
+    assert.ok(t?.guided, `cowork-${n} missing`);
+    assert.equal(cowork.lessons[n - 1].duration, t.minutes);
+    assert.ok(t.steps.length >= 4, `cowork-${n} steps`);
+    const g = t.guided;
+    assert.ok(g.outcome.length > 30 && g.analogy.length > 30, `cowork-${n} intro`);
+    assert.ok(g.walkthrough.length >= 3, `cowork-${n} walkthrough`);
+    for (const s of g.walkthrough) assert.ok(s.title && [].concat(s.text).every(x => x.length > 20), `cowork-${n}: ${s.title}`);
+    assert.ok(['sort', 'brief', 'plan'].includes(g.lab.type), `cowork-${n} lab`);
+    if (g.lab.type === 'sort') {
+      assert.ok(g.lab.items.length >= 5);
+      for (const it of g.lab.items) assert.ok(g.lab.groups.includes(it.group), `cowork-${n}: ${it.text}`);
+      assert.ok(new Set(g.lab.items.map(i => i.group)).size >= 2, `cowork-${n} uses one group only`);
+    }
+    if (g.lab.type === 'plan') assert.ok(g.lab.steps.some(s => s.ok.includes('keep')) && g.lab.steps.some(s => !s.ok.includes('keep')), `cowork-${n} plan`);
+    if (g.lab.type === 'brief') for (const f of g.lab.fields) {
+      const v = g.lab.example[f.key].toLowerCase();
+      assert.ok(v.length >= (f.minLen || 8) && (!f.any || f.any.some(k => v.includes(k))), `cowork-${n} example ${f.key}`);
+    }
+    assert.equal(t.quiz.length, 3);
+    for (const qq of t.quiz) { assert.ok(qq.answer >= 0 && qq.answer < qq.options.length); questions.add(qq.q); }
+  }
+  assert.equal(questions.size, 84, 'no question reused across lessons');
+});
