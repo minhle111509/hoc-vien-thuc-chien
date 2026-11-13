@@ -4,6 +4,8 @@
 //  - mountSortLab: put each task into the right group (chat / Cowork / do it yourself)
 //  - mountBriefLab: write a task brief; the simulated Claude asks about whatever is missing
 //  - mountPlanLab: review a proposed plan step by step (keep / ask / remove)
+//  - mountOrderLab: click steps in the right order
+// Labels in the labs come from the lesson data, so the same pieces serve Office lessons too.
 
 const h = (tag, cls = '', text = '') => { const n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; };
 const button = (label, fn, cls = '') => { const b = h('button', cls, label); b.type = 'button'; b.addEventListener('click', fn); return b; };
@@ -141,12 +143,13 @@ export function mountBriefLab(parent, spec, {onPass} = {}) {
 export function mountPlanLab(parent, spec, {onPass} = {}) {
   const box = h('div', 'plan-lab');
   const picks = spec.steps.map(() => null);
-  box.append(h('p', 'plan-task', `Việc em đã giao: ${spec.task}`));
+  const L = {taskLabel: 'Việc em đã giao', keep: '✓ Giữ', ask: '? Hỏi lại', remove: '✗ Bỏ bước này', item: 'Bước', approve: 'Duyệt kế hoạch', hint: 'Quyết định cho từng bước trong kế hoạch Claude đề xuất, rồi bấm Duyệt kế hoạch.', success: '✓ Em duyệt đúng: giữ bước cần thiết, chặn bước nguy hiểm.', ...spec.labels};
+  box.append(h('p', 'plan-task', `${L.taskLabel}: ${spec.task}`));
   const list = h('div', 'sort-items');
-  choiceRows(list, spec.steps, [['keep', '✓ Giữ'], ['ask', '? Hỏi lại'], ['remove', '✗ Bỏ bước này']], picks, (st, i) => `Bước ${i + 1}. ${st.text}`);
-  const status = h('div', 'feedback', 'Quyết định cho từng bước trong kế hoạch Claude đề xuất, rồi bấm Duyệt kế hoạch.');
+  choiceRows(list, spec.steps, [['keep', L.keep], ['ask', L.ask], ['remove', L.remove]], picks, (st, i) => `${L.item} ${i + 1}. ${st.text}`);
+  const status = h('div', 'feedback', L.hint);
   const run = h('div', 'plan-run');
-  const approve = button('Duyệt kế hoạch', () => {
+  const approve = button(L.approve, () => {
     if (picks.some(p => !p)) { status.textContent = 'Hãy quyết định cho tất cả các bước.'; return; }
     let right = 0;
     spec.steps.forEach((st, i) => {
@@ -156,8 +159,8 @@ export function mountPlanLab(parent, spec, {onPass} = {}) {
       w.textContent = `${ok ? '✓' : '✗'} ${st.why}`;
       w.className = 'quiz-why ' + (ok ? 'ok' : 'bad');
     });
-    if (right === spec.steps.length) { status.textContent = '✓ Em duyệt đúng: giữ bước cần thiết, chặn bước nguy hiểm.'; run.replaceChildren(chatPicture([{who: 'claude', text: spec.result}])); onPass?.(); }
-    else { status.textContent = `Đúng ${right}/${spec.steps.length} bước. Đọc giải thích rồi chọn lại.`; run.replaceChildren(); }
+    if (right === spec.steps.length) { status.textContent = L.success; run.replaceChildren(...(spec.result ? [chatPicture([{who: 'claude', text: spec.result}])] : [])); onPass?.(); }
+    else { status.textContent = `Đúng ${right}/${spec.steps.length}. Đọc giải thích rồi chọn lại.`; run.replaceChildren(); }
   }, 'primary');
   box.append(list, approve, status, run);
   parent.append(box);

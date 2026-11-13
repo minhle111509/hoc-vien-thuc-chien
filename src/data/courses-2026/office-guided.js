@@ -53,7 +53,7 @@ export const OFFICE_GUIDED = {
     ],
     lab: {type: 'sheet', intro: 'Đến lượt em. Gõ công thức vào thanh fx rồi bấm Chạy. Bảng sẽ tự kéo công thức xuống cho cả lớp để em xem kết quả.',
       sheet: {cols: 3, rows: 8, cells: shirtCells(), headerRow: false, tasks: [
-        {cell: 'C3', fillTo: 8, prompt: 'Viết công thức ở C3 tính thành tiền của An, sao cho kéo xuống C8 vẫn đúng cho mọi bạn.', expect: (g, row) => g['B' + row] * g.B1, mutate: {cell: 'B1', value: 90000}, hint: 'Số áo ở B3, giá ở B1. Ô giá cần được ghim bằng dấu $.', explain: '$B$1 đứng yên khi kéo, nên mọi dòng đều nhân đúng với giá áo.'},
+        {cell: 'C3', answer: '=B3*$B$1', fillTo: 8, prompt: 'Viết công thức ở C3 tính thành tiền của An, sao cho kéo xuống C8 vẫn đúng cho mọi bạn.', expect: (g, row) => g['B' + row] * g.B1, mutate: {cell: 'B1', value: 90000}, hint: 'Số áo ở B3, giá ở B1. Ô giá cần được ghim bằng dấu $.', explain: '$B$1 đứng yên khi kéo, nên mọi dòng đều nhân đúng với giá áo.'},
       ]}},
   },
   10: {
@@ -68,9 +68,9 @@ export const OFFICE_GUIDED = {
     ],
     lab: {type: 'sheet', intro: 'Đến lượt em làm 3 việc trên bảng điểm. Gõ công thức vào thanh fx, bấm Chạy (hoặc Enter). Dùng dấu phẩy hay chấm phẩy đều được.',
       sheet: {cols: 8, rows: 9, cells: gradeCells(), tasks: [
-        {cell: 'E2', fillTo: 9, prompt: 'Ở E2, dùng IF ghi “Đạt” nếu điểm từ 8 trở lên, không thì “Chưa đạt”. Bảng sẽ tự kéo xuống E9.', mustUse: ['IF'], expect: (g, row) => (g['C' + row] >= 8 ? 'Đạt' : 'Chưa đạt'), hint: '=IF(C2>=8,"Đạt","Chưa đạt") — chữ trong ngoặc kép.', explain: 'Mỗi bạn được xếp loại đúng.'},
-        {cell: 'G2', prompt: 'Ở G2, dùng COUNTIF đếm số bạn có điểm từ 8 trở lên.', mustUse: ['COUNTIF'], expect: 4, hint: '=COUNTIF(vùng điểm, ">=8"). Vùng điểm là C2:C9.', explain: 'Có 4 bạn: An, Chi, Em, Khoa.'},
-        {cell: 'H2', prompt: 'Ở H2, dùng SUMIF tính tổng tiền quỹ của Tổ 1.', mustUse: ['SUMIF'], expect: 170, hint: '=SUMIF(cột tổ, "Tổ 1", cột quỹ) → =SUMIF(B2:B9,"Tổ 1",D2:D9)', explain: 'Tổ 1 nộp 170 nghìn đồng.'},
+        {cell: 'E2', answer: '=IF(C2>=8,"Đạt","Chưa đạt")', fillTo: 9, prompt: 'Ở E2, dùng IF ghi “Đạt” nếu điểm từ 8 trở lên, không thì “Chưa đạt”. Bảng sẽ tự kéo xuống E9.', mustUse: ['IF'], expect: (g, row) => (g['C' + row] >= 8 ? 'Đạt' : 'Chưa đạt'), hint: '=IF(C2>=8,"Đạt","Chưa đạt") — chữ trong ngoặc kép.', explain: 'Mỗi bạn được xếp loại đúng.'},
+        {cell: 'G2', answer: '=COUNTIF(C2:C9,">=8")', prompt: 'Ở G2, dùng COUNTIF đếm số bạn có điểm từ 8 trở lên.', mustUse: ['COUNTIF'], expect: 4, hint: '=COUNTIF(vùng điểm, ">=8"). Vùng điểm là C2:C9.', explain: 'Có 4 bạn: An, Chi, Em, Khoa.'},
+        {cell: 'H2', answer: '=SUMIF(B2:B9,"Tổ 1",D2:D9)', prompt: 'Ở H2, dùng SUMIF tính tổng tiền quỹ của Tổ 1.', mustUse: ['SUMIF'], expect: 170, hint: '=SUMIF(cột tổ, "Tổ 1", cột quỹ) → =SUMIF(B2:B9,"Tổ 1",D2:D9)', explain: 'Tổ 1 nộp 170 nghìn đồng.'},
       ]}},
   },
 };

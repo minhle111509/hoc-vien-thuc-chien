@@ -141,3 +141,9 @@
 - Phòng mô phỏng: xếp việc (18 bài: chọn mức quyền kết nối, thư mục nên chia sẻ, nguồn đáng tin, chỉ dẫn đáng ngờ, cột dữ liệu cần ẩn danh…), viết bản giao việc / hướng dẫn / skill / việc định kỳ / đặc tả plugin (5 bài, Claude mô phỏng hỏi lại phần thiếu), duyệt kế hoạch (6 bài, có bước nguy hiểm cài sẵn).
 - Đáp án đúng các câu hỏi được xoay đều 3 vị trí (`balance.js`). Thời lượng gợi ý theo từng bài.
 - Kiểm thử: 113/113; đã duyệt và làm thử phòng mô phỏng của cả 28 bài trên trình duyệt. Nội dung do AI hỗ trợ biên soạn theo Help Center của Claude, cần người dạy rà lại.
+
+## Môn Microsoft Office hoàn chỉnh theo kiểu học cho người mới (2026-11-13)
+- Cả 28 bài Office dùng kiểu học từng bước (`office-guided.js`, `office-guided-2.js`, `office-guided-3.js`): so sánh đời thường, hình thanh menu Word/Excel/PowerPoint/Outlook khoanh nút cần bấm, ví dụ mẫu, từ mới giải thích tại chỗ.
+- Thực hành trên trang: bảng tính mini (7 bài: SUM, IF, COUNTIF, SUMIF, XLOOKUP, CORREL, AVERAGE, $ và kéo công thức), Word mini (Styles), sắp xếp các bước (6 bài: mục lục, Mail Merge, Slide Master, lịch họp, quy trình…), xếp loại (11 bài), duyệt thay đổi / kế hoạch (4 bài), viết email (1 bài).
+- Bảng tính mini thêm XLOOKUP (không tự bỏ dấu cách, giống Excel), CORREL/PEARSON, ROUND, TRIM. Thêm phòng sắp xếp bước (`src/games/guided-order.js`).
+- Kiểm thử: 115/115; mỗi việc trong bảng tính có đáp án mẫu được kiểm thử tự giải; đã làm qua cả 28 bài trên trình duyệt.

@@ -123,3 +123,47 @@ test('the whole Cowork course uses the guided format with working labs', async (
   }
   assert.equal(questions.size, 84, 'no question reused across lessons');
 });
+
+test('the whole Office course uses the guided format; every sheet task is solvable with its model answer', async () => {
+  const {EXTRA_TEACH} = await import('../src/data/courses-2026/index.js');
+  const T = EXTRA_TEACH.office;
+  const labTypes = new Set();
+  for (let n = 1; n <= 28; n++) {
+    const g = T[n].guided;
+    assert.ok(g, `office-${n} missing guided`);
+    assert.ok(g.outcome.length > 30 && g.analogy.length > 30, `office-${n} intro`);
+    assert.ok(g.walkthrough.length >= 3, `office-${n} walkthrough`);
+    for (const s of g.walkthrough) assert.ok(s.title && [].concat(s.text).every(x => x.length > 20), `office-${n}: ${s.title}`);
+    labTypes.add(g.lab.type);
+    if (g.lab.type === 'order') assert.equal(new Set(g.lab.items).size, g.lab.items.length, `office-${n} order items unique`);
+    if (g.lab.type === 'sort') for (const it of g.lab.items) assert.ok(g.lab.groups.includes(it.group), `office-${n}: ${it.text}`);
+    if (g.lab.type === 'brief') for (const f of g.lab.fields) {
+      const v = g.lab.example[f.key].toLowerCase();
+      assert.ok(v.length >= (f.minLen || 8) && (!f.any || f.any.some(k => v.includes(k))), `office-${n} example ${f.key}`);
+    }
+    if (g.lab.type === 'sheet') for (const task of g.lab.sheet.tasks) {
+      const formula = task.answer;
+      assert.ok(formula, `office-${n} ${task.cell} needs a model answer`);
+      const cells = {...g.lab.sheet.cells};
+      const col = task.cell.replace(/\d+/, ''), start = Number(task.cell.replace(/\D+/, ''));
+      const last = task.fillTo || start;
+      for (let r = start; r <= last; r++) cells[col + r] = evalFormula(shiftFormula(formula, r - start), cells).value;
+      for (let r = start; r <= last; r++) {
+        const want = typeof task.expect === 'function' ? task.expect(cells, r) : task.expect;
+        const got = cells[col + r];
+        assert.ok(typeof want === 'number' ? Math.abs(got - want) < 1e-9 : got === want, `office-${n} ${task.cell}: ${formula} gives ${JSON.stringify(got)}, want ${JSON.stringify(want)}`);
+      }
+    }
+  }
+  for (const t of ['sheet', 'styles', 'sort', 'order', 'plan', 'brief']) assert.ok(labTypes.has(t), `lab type ${t} used`);
+});
+
+test('XLOOKUP and CORREL behave like Excel for the lessons', () => {
+  const g = {A2: 'S01', A3: 'S02', B2: 'Dế Mèn', B3: 'Tắt đèn', D2: 's02', D3: 'S02 '};
+  assert.equal(evalFormula('=XLOOKUP(D2,A2:A3,B2:B3,"Chưa có")', g).value, 'Tắt đèn', 'case-insensitive');
+  assert.equal(evalFormula('=XLOOKUP(D3,A2:A3,B2:B3,"Chưa có")', g).value, 'Chưa có', 'a trailing space does not match');
+  assert.equal(evalFormula('=XLOOKUP(TRIM(D3),A2:A3,B2:B3,"Chưa có")', g).value, 'Tắt đèn', 'TRIM fixes it');
+  assert.equal(evalFormula('=XLOOKUP("S09",A2:A3,B2:B3)', g).value.error, '#N/A');
+  const c = {A1: 1, A2: 2, A3: 3, B1: 2, B2: 4, B3: 6};
+  assert.ok(Math.abs(evalFormula('=CORREL(A1:A3,B1:B3)', c).value - 1) < 1e-12);
+});

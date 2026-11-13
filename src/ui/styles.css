@@ -387,3 +387,6 @@ details.card>summary{cursor:pointer;font-weight:700;color:var(--wine-text)}
 .brief-actions{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
 .brief-example{margin:4px 0;line-height:1.5}
 .plan-task{padding:10px 12px;border-radius:10px;background:var(--blue-soft);font-weight:600}
+.ribbon-powerpoint{background:#b7472a}
+.ribbon-outlook{background:#0f6cbd}
+.order-lab .order-line{margin:8px 0}

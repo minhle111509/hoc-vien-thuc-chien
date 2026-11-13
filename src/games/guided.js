@@ -11,15 +11,18 @@ const button = (label, fn, cls = '') => { const b = h('button', cls, label); b.t
 
 // ---------- Menu bar picture ----------
 const TABS = {
-  word: ['File', 'Home', 'Insert', 'Layout', 'References', 'Review', 'View'],
+  word: ['File', 'Home', 'Insert', 'Design', 'Layout', 'References', 'Mailings', 'Review', 'View'],
   excel: ['File', 'Home', 'Insert', 'Page Layout', 'Formulas', 'Data', 'Review', 'View'],
+  powerpoint: ['File', 'Home', 'Insert', 'Design', 'Transitions', 'Animations', 'Slide Show', 'Review', 'View'],
+  outlook: ['File', 'Home', 'Send / Receive', 'View', 'Help'],
 };
-const TAB_VI = {Home: 'Trang đầu', Insert: 'Chèn', Layout: 'Bố trí', 'Page Layout': 'Bố trí trang', References: 'Tham chiếu', Review: 'Xem lại', View: 'Dạng xem', Formulas: 'Công thức', Data: 'Dữ liệu', File: 'Tệp'};
+const APP_NAME = {word: 'Word', excel: 'Excel', powerpoint: 'PowerPoint', outlook: 'Outlook'};
+const TAB_VI = {Mailings: 'Gửi thư', Design: 'Thiết kế', Transitions: 'Chuyển tiếp', Animations: 'Hoạt hình', 'Slide Show': 'Trình chiếu', 'Send / Receive': 'Gửi / Nhận', Help: 'Trợ giúp', Home: 'Trang đầu', Insert: 'Chèn', Layout: 'Bố trí', 'Page Layout': 'Bố trí trang', References: 'Tham chiếu', Review: 'Xem lại', View: 'Dạng xem', Formulas: 'Công thức', Data: 'Dữ liệu', File: 'Tệp'};
 
 export function ribbonPicture({app = 'word', tab, group, buttons = [], press}) {
   const wrap = h('figure', 'ribbon-pic');
   wrap.setAttribute('role', 'img');
-  wrap.setAttribute('aria-label', `Thanh menu ${app === 'word' ? 'Word' : 'Excel'}: thẻ ${tab}${group ? `, nhóm ${group}` : ''}${press ? `, bấm ${press}` : ''}`);
+  wrap.setAttribute('aria-label', `Thanh menu ${APP_NAME[app]}: thẻ ${tab}${group ? `, nhóm ${group}` : ''}${press ? `, bấm ${press}` : ''}`);
   const bar = h('div', `ribbon-tabs ribbon-${app}`);
   for (const t of TABS[app]) { const s = h('span', t === tab ? 'ribbon-tab on' : 'ribbon-tab', t); bar.append(s); }
   const body = h('div', 'ribbon-body');
@@ -68,6 +71,7 @@ export function mountWalkthrough(parent, steps, {onFinish} = {}) {
       for (const [w, m] of Object.entries(s.terms)) box.append(h('dt', '', w), h('dd', '', m));
       body.append(h('p', 'walk-terms-title', '📘 Từ mới trong bước này'), box);
     }
+    if (s.code) body.append(h('pre', 'teach-example', s.code));
     if (s.tip) body.append(h('p', 'walk-tip', `💡 ${s.tip}`));
     prev.disabled = i === 0;
     next.textContent = i === steps.length - 1 ? 'Xong, sang phần Thực hành →' : 'Bước tiếp →';

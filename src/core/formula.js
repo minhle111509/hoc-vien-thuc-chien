@@ -92,7 +92,28 @@ const FN = {
   IF: args => { if (args.length < 2) return ERR('#N/A'); const c = args[0]; if (isErr(c)) return c; return (typeof c === 'boolean' ? c : toNum(c) !== 0) ? args[1] : (args.length > 2 ? args[2] : false); },
   COUNTIF: args => { if (args.length !== 2 || !Array.isArray(args[0])) return ERR('#N/A'); const f = criteria(args[1]); return args[0].filter(f).length; },
   SUMIF: args => { if (args.length < 2 || !Array.isArray(args[0])) return ERR('#N/A'); const f = criteria(args[1]); const sumR = Array.isArray(args[2]) ? args[2] : args[0]; return args[0].reduce((s, v, i) => s + (f(v) && typeof sumR[i] === 'number' ? sumR[i] : 0), 0); },
+  // XLOOKUP(lookup, lookup_range, return_range, [if_not_found]) — exact match, case-insensitive like Excel.
+  // Spaces are NOT trimmed, as in Excel: "S015 " does not match "S015" (a lesson point).
+  XLOOKUP: args => {
+    if (args.length < 3 || !Array.isArray(args[1]) || !Array.isArray(args[2])) return ERR('#VALUE!');
+    const norm = v => (typeof v === 'string' ? v.toLowerCase() : v);
+    const key = norm(args[0]);
+    const i = args[1].findIndex(v => norm(v) === key);
+    return i >= 0 ? args[2][i] : (args.length > 3 ? args[3] : ERR('#N/A'));
+  },
+  CORREL: args => {
+    if (args.length !== 2 || !Array.isArray(args[0]) || !Array.isArray(args[1]) || args[0].length !== args[1].length) return ERR('#N/A');
+    const pairs = args[0].map((x, i) => [x, args[1][i]]).filter(([x, y]) => typeof x === 'number' && typeof y === 'number');
+    if (pairs.length < 2) return ERR('#DIV/0!');
+    const mx = pairs.reduce((s, [x]) => s + x, 0) / pairs.length, my = pairs.reduce((s, [, y]) => s + y, 0) / pairs.length;
+    let sxy = 0, sxx = 0, syy = 0;
+    for (const [x, y] of pairs) { sxy += (x - mx) * (y - my); sxx += (x - mx) ** 2; syy += (y - my) ** 2; }
+    return sxx && syy ? sxy / Math.sqrt(sxx * syy) : ERR('#DIV/0!');
+  },
+  ROUND: args => { const x = toNum(args[0]), d = toNum(args[1] ?? 0); if (isErr(x)) return x; const f = 10 ** d; return Math.round(x * f) / f; },
 };
+FN.PEARSON = FN.CORREL;
+FN.TRIM = args => String(args[0] ?? '').trim().replace(/\s+/g, ' ');
 
 function evaluate(node, get) {
   switch (node.k) {
