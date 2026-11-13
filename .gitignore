@@ -1,0 +1,8 @@
+node_modules/
+vendor/phaser.min.js
+.env
+.env.*
+!.env.example
+*.log
+dist/
+*.zip

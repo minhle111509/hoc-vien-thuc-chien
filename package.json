@@ -1,0 +1,22 @@
+{
+  "name": "hoc-vien-thuc-chien-quest",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/ai.js",
+    "test": "node --test tests/*.test.js",
+    "serve": "node server/ai.js",
+    "serve:env": "node --env-file=.env server/ai.js",
+    "setup:phaser": "node scripts/install-phaser.mjs",
+    "build:site": "node scripts/build-site.mjs",
+    "build:pdf": "python scripts/build-pdf.py",
+    "build:zip": "npm run build:site && node scripts/make-zip.mjs"
+  },
+  "dependencies": {
+    "phaser": "3.90.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}
