@@ -13,6 +13,9 @@ import {LOCALAI} from './localai.js';
 import {CLAUDEDESIGN} from './claudedesign.js';
 import {WEBDEPLOY} from './webdeploy.js';
 import {OFFICE_TEACH} from './office-teach.js';
+import {OFFICE_GUIDED} from './office-guided.js';
+// Beginner walkthrough + in-page lab (trial on 3 lessons).
+for (const [n, g] of Object.entries(OFFICE_GUIDED)) OFFICE_TEACH[n].guided = g;
 
 // Teaching layer (how-to, worked example, exercise, lesson quiz) — pilot course: office.
 export const EXTRA_TEACH = {office: OFFICE_TEACH};

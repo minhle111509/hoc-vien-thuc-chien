@@ -121,3 +121,12 @@
 - Ô công thức chấp nhận cả dấu `;` (Excel tiếng Việt) và `,`, không phân biệt hoa thường và khoảng trắng.
 - Sửa chung: mục tiêu giữ chữ viết tắt (XLOOKUP, AI, MCP); nút AI chỉ hiện khi máy chủ có cấu hình AI.
 - Kiểm thử: 106/106 (thêm `tests/teach.test.js`). Các môn khác chưa có lớp này.
+
+## Thử cách dạy cho người mới: 3 bài Office (2026-11-13)
+- Bài 2 (Styles), bài 9 (tham chiếu tuyệt đối), bài 10 (IF/COUNTIF/SUMIF) có kiểu học mới (`src/data/courses-2026/office-guided.js`):
+  - Mở bài bằng “Học xong em làm được…” và một so sánh đời thường (đồng phục, cái ghim, câu “nếu… thì…”).
+  - **Học từng bước**: mỗi lần một ý, có từ mới giải thích tại chỗ, hình thanh menu Word/Excel khoanh nút cần bấm, bảng tính mẫu tô màu vùng công thức đang đọc.
+  - **Thực hành ngay trên trang**: bảng tính mini chạy công thức thật (`src/core/formula.js`: SUM, AVERAGE, COUNT, MIN, MAX, IF, COUNTIF, SUMIF, tham chiếu $, kéo công thức xuống) và trang Word mini có Navigation Pane (`src/games/guided.js`). Không cần cài Office.
+  - Chấm theo kết quả: thiếu `$` thấy ngay ô lỗi #VALUE!; gõ thẳng số bị phát hiện khi đổi giá; `>8` thay cho `>=8` bị phát hiện ở bạn được đúng 8 điểm.
+  - Phần kiến thức đầy đủ, dụng cụ, an toàn gập vào “Xem thêm”.
+- Kiểm thử: 111/111 (thêm `tests/guided.test.js`). 25 bài Office còn lại vẫn dùng mẫu trước.
